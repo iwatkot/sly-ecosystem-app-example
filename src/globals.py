@@ -14,15 +14,6 @@ if sly.is_development():
 api: sly.Api = sly.Api.from_env()
 
 
-# * This variable requires SLY_APP_DATA_DIR in local.env file.
-SLY_APP_DATA_DIR = sly.app.get_data_dir()
-
-
-# * If the app needed static dir (showing local path in web UI), it should be created here.
-# * If not needed, this code can be securely removed.
-STATIC_DIR = os.path.join(SLY_APP_DATA_DIR, "static")
-
-
 # * To avoid global variables in different modules, it's better to use g.STATE (g.AppState) object
 # * across the app. It can be accessed from any module by importing globals module.
 class State:
@@ -31,10 +22,6 @@ class State:
         # * For example selected team, workspace, project, dataset, etc.
         self.selected_team = sly.io.env.team_id()
         self.selected_workspace = sly.io.env.workspace_id()
-        self.selected_project = sly.io.env.project_id(raise_not_found=False)
-        self.selected_dataset = sly.io.env.dataset_id(raise_not_found=False)
-
-        self.continue_working = True
 
 
 # * Class object to access from other modules.
